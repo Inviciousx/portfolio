@@ -26,7 +26,7 @@ export default function Resume() {
         {/* Mobile (fits width) */}
         <div className="md:hidden">
           <iframe
-            src={`${resumePath}#page=1&zoom=page-width`}
+            src={`${resumePath}#page=1&view=FitH`}
             title="Resume PDF (mobile)"
             className={`w-full h-[70vh] transition-all duration-300 ${
               interactive ? "pointer-events-auto" : "pointer-events-none"
