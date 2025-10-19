@@ -37,7 +37,7 @@ export default function Contact() {
       </h2>
 
       <p className="text-slate-400 mb-8">
-        I’m open to opportunities in IT Support and Cybersecurity (Defense &
+        I'm open to opportunities in IT Support and Cybersecurity (Defense &
         Monitoring). Feel free to connect or reach out directly.
       </p>
 

@@ -67,11 +67,11 @@ export default function App() {
                   <SectionDivider />
                   <About />
                   <SectionDivider />
+                  <Projects />
+                  <SectionDivider />
                   <Experience />
                   <SectionDivider />
                   <Certifications />
-                  <SectionDivider />
-                  <Projects />
                   <SectionDivider />
                   <Resume />
                   <SectionDivider />

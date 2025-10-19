@@ -234,8 +234,9 @@ export default function ProjectDetail() {
               ))}
             </div>
           )}
-
-          {/* Download Link */}
+           {/* Download Link (temporarily disabled) */}
+          {/*
+          
           <div className="mt-10">
             <a
               href="/Enterprise_Network_Project.pdf"
@@ -245,6 +246,7 @@ export default function ProjectDetail() {
               View Full Project Report (PDF)
             </a>
           </div>
+          */}
         </>
       ) : (
         <div className="text-center text-slate-400 mt-20">

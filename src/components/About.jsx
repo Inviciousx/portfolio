@@ -24,7 +24,7 @@ export default function About() {
         <p>
           I’m <span className="text-slate-200 font-semibold">Raziuddin Mohammed</span>, an
           IT Support and Technical Analyst with{" "}
-          <span className="text-slate-200">3+ years of combined experience</span> in
+          <span className="text-slate-200">2+ years of combined experience</span> in
           technical support, network troubleshooting, and customer service. I blend
           problem-solving expertise with a growing passion for{" "}
           <span className="text-slate-200">cyber defense and monitoring</span>.

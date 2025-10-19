@@ -35,7 +35,7 @@ const jobs = [
     company: "Sound Marketing Inc.",
     role: "Technical Support Analyst",
     location: "Pickering, ON",
-    period: "Jan 2024 – Aug 2024",
+    period: "Jan 2024 - Aug 2024",
     summary: [
       "Resolved hardware, software, and network incidents with a focus on uptime and service continuity.",
       "Achieved 85% first-contact resolution by prioritizing tickets and applying remote triage techniques.",
@@ -63,7 +63,7 @@ const jobs = [
     company: "KhudraSoft",
     role: "IT Help Desk Support",
     location: "Hyderabad, India",
-    period: "Jan 2022 – Dec 2022",
+    period: "Jan 2022 - Dec 2022",
     summary: [
       "Handled first-line ticket triage and resolution, ensuring SLA adherence across high-volume requests.",
       "Configured and deployed systems, reducing recurring network incidents and downtime.",
@@ -88,7 +88,7 @@ const jobs = [
     company: "Pantech E-Learning",
     role: "Technical Support Intern",
     location: "Hyderabad, India",
-    period: "Jun 2021 – Nov 2021",
+    period: "Jun 2021 - Nov 2021",
     summary: [
       "Supported LMS operations and resolved technical issues for end-users and administrators.",
       "Automated tasks with Python scripts improving efficiency by 15%.",
@@ -123,10 +123,13 @@ export default function Experience() {
         {jobs.map((job, index) => (
           <motion.article
             key={index}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{
+              duration: 0.3,
+              ease: [0.4, 0, 0.2, 1],
+            }}
             className={`rounded-xl border ${
               expanded === index ? "border-cyan-600/50" : "border-slate-800"
             } bg-slate-900/40 p-5 md:p-6 transition-all duration-300`}
@@ -161,7 +164,7 @@ export default function Experience() {
               ))}
             </div>
 
-            {/* Expand Button (right aligned) */}
+            {/* Expand Button */}
             <div className="mt-4 flex justify-end">
               <button
                 onClick={() => toggleExpand(index)}
@@ -224,7 +227,6 @@ export default function Experience() {
                     ))}
                   </ul>
 
-                  {/* Additional Skills */}
                   <div className="mt-4 flex flex-wrap gap-2">
                     {job.moreSkills.map((s, i) => (
                       <span

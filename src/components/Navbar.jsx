@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 const links = [
   { href: "#home", label: "Home" },
   { href: "#about", label: "About" },
+  { href: "#projects", label: "Projects" },
   { href: "#experience", label: "Experience" },
   { href: "#certs", label: "Certifications" },
-  { href: "#projects", label: "Projects" },
   { href: "#resume", label: "Resume" },
   { href: "#news", label: "News" },
   { href: "#contact", label: "Contact" },
@@ -25,15 +26,12 @@ export default function Navbar() {
       const target = href.slice(1);
 
       if (window.location.pathname !== "/") {
-        // Navigate home and scroll after load
         navigate("/", { state: { scrollTo: target } });
       } else {
-        // ✅ Remove hash from URL so browser doesn’t remember #section
         if (window.history.replaceState) {
           window.history.replaceState(null, "", window.location.pathname);
         }
 
-        // Smooth scroll to section
         const section = document.getElementById(target);
         if (section) section.scrollIntoView({ behavior: "smooth" });
       }
@@ -51,16 +49,30 @@ export default function Navbar() {
           onClick={(e) => handleClick(e, "#home")}
           className="font-semibold tracking-wide text-cyan-400"
         >
-          Raziuddin<span className="text-slate-400">.portfolio</span>
+          Raziuddin Mohammed<span className="text-slate-400">.portfolio</span>
         </a>
 
-        {/* Hamburger (Mobile) */}
+        {/* Animated Hamburger */}
         <button
-          className="md:hidden rounded p-2 text-slate-300 hover:text-cyan-400"
+          className="relative w-6 h-5 flex flex-col justify-between items-center md:hidden"
           onClick={() => setOpen(!open)}
           aria-label="Toggle Menu"
         >
-          ☰
+          <motion.span
+            animate={open ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
+            className="block h-[2px] w-full bg-slate-300 rounded origin-center"
+            transition={{ duration: 0.3 }}
+          />
+          <motion.span
+            animate={open ? { opacity: 0 } : { opacity: 1 }}
+            className="block h-[2px] w-full bg-slate-300 rounded"
+            transition={{ duration: 0.3 }}
+          />
+          <motion.span
+            animate={open ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
+            className="block h-[2px] w-full bg-slate-300 rounded origin-center"
+            transition={{ duration: 0.3 }}
+          />
         </button>
 
         {/* Desktop Menu */}
@@ -76,8 +88,6 @@ export default function Navbar() {
               </a>
             </li>
           ))}
-
-          {/* Social Icons */}
           <li className="flex items-center gap-3">
             <a
               href="https://www.linkedin.com/in/raziuddin-mohd/"
@@ -101,44 +111,60 @@ export default function Navbar() {
         </ul>
       </div>
 
-      {/* Mobile Menu */}
-      {open && (
-        <div className="md:hidden border-t border-gray-800/60 bg-black/80">
-          <ul className="px-4 py-3 grid gap-3">
-            {links.map((l) => (
-              <li key={l.href}>
-                <a
-                  href="/"
-                  onClick={(e) => handleClick(e, l.href)}
-                  className="block text-slate-300 hover:text-cyan-400"
+      {/* Mobile Menu with Transition */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className="md:hidden border-t border-gray-800/60 bg-black/80"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <ul className="px-4 py-3 grid gap-3">
+              {links.map((l, i) => (
+                <motion.li
+                  key={l.href}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.05 }}
                 >
-                  {l.label}
+                  <a
+                    href="/"
+                    onClick={(e) => handleClick(e, l.href)}
+                    className="block text-slate-300 hover:text-cyan-400"
+                  >
+                    {l.label}
+                  </a>
+                </motion.li>
+              ))}
+              <motion.li
+                className="flex items-center gap-4 pt-2"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: links.length * 0.05 }}
+              >
+                <a
+                  href="https://www.linkedin.com/in/raziuddin-mohd/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-cyan-400"
+                >
+                  <FaLinkedin size={18} />
                 </a>
-              </li>
-            ))}
-
-            {/* Socials for Mobile */}
-            <li className="flex items-center gap-4 pt-2">
-              <a
-                href="https://www.linkedin.com/in/raziuddin-mohd/"
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-cyan-400"
-              >
-                <FaLinkedin size={18} />
-              </a>
-              <a
-                href="https://github.com/Inviciousx"
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-cyan-400"
-              >
-                <FaGithub size={18} />
-              </a>
-            </li>
-          </ul>
-        </div>
-      )}
+                <a
+                  href="https://github.com/Inviciousx"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-cyan-400"
+                >
+                  <FaGithub size={18} />
+                </a>
+              </motion.li>
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }
