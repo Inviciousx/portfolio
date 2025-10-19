@@ -1,15 +1,8 @@
 import { useState } from "react";
-import { Document, Page, pdfjs } from "react-pdf";
-
-// worker setup
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js`;
 
 export default function Resume() {
-  const [interactive, setInteractive] = useState(false);
-  const [numPages, setNumPages] = useState(null);
   const resumePath = `${import.meta.env.BASE_URL}Raziuddin_Mohammed_Resume.pdf`;
-
-  const onLoadSuccess = ({ numPages }) => setNumPages(numPages);
+  const [interactive, setInteractive] = useState(false);
 
   return (
     <section id="resume" className="mx-auto max-w-6xl px-4 py-16">
@@ -17,10 +10,12 @@ export default function Resume() {
         Resume <span className="text-cyan-400">Preview</span>
       </h2>
 
+      {/* PDF container with click-to-scroll logic */}
       <div
-        className="relative border border-slate-800 rounded-lg bg-slate-900/40 overflow-hidden flex justify-center"
+        className="relative border border-slate-800 rounded-lg overflow-hidden bg-slate-900/40"
         onClick={() => setInteractive(true)}
       >
+        {/* Overlay that blocks scrolling until clicked */}
         {!interactive && (
           <div
             className="absolute inset-0 z-10 bg-transparent cursor-pointer"
@@ -28,31 +23,32 @@ export default function Resume() {
           />
         )}
 
-        <div
-          className={`overflow-y-auto transition-all duration-300 w-full max-h-[90vh] ${
-            interactive ? "pointer-events-auto" : "pointer-events-none"
-          }`}
-        >
-          <Document
-            file={resumePath}
-            onLoadSuccess={onLoadSuccess}
-            loading={<div className="text-slate-400 p-4">Loading resume...</div>}
-            className="flex flex-col items-center"
-          >
-            {Array.from(new Array(numPages), (_, i) => (
-              <Page
-                key={`page_${i + 1}`}
-                pageNumber={i + 1}
-                width={window.innerWidth < 768 ? 340 : 700}
-                renderAnnotationLayer={false}
-                renderTextLayer={false}
-                className="my-2 shadow-md"
-              />
-            ))}
-          </Document>
+        {/* Mobile (fits width) */}
+        <div className="md:hidden">
+          <iframe
+            src={`${resumePath}#page=1&zoom=page-width`}
+            title="Resume PDF (mobile)"
+            className={`w-full h-[70vh] transition-all duration-300 ${
+              interactive ? "pointer-events-auto" : "pointer-events-none"
+            }`}
+            style={{ border: "none" }}
+          />
+        </div>
+
+        {/* Desktop / tablet */}
+        <div className="hidden md:block">
+          <iframe
+            src={`${resumePath}#page=1&view=FitH`}
+            title="Resume PDF"
+            className={`w-full h-[90vh] transition-all duration-300 ${
+              interactive ? "pointer-events-auto" : "pointer-events-none"
+            }`}
+            style={{ border: "none" }}
+          />
         </div>
       </div>
 
+      {/* Download button */}
       <div className="flex justify-end mt-4">
         <a
           href={resumePath}
