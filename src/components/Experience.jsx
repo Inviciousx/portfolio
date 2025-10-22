@@ -129,8 +129,12 @@ export default function Experience() {
             layout
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.1 }}
+            viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            style={{
+              backfaceVisibility: "hidden",
+              WebkitTransform: "translateZ(0)",
+            }}
             className={`rounded-xl border ${
               expanded === index ? "border-cyan-600/50" : "border-slate-800"
             } bg-slate-900/40 p-5 md:p-6 transition-all duration-300`}
@@ -222,6 +226,10 @@ export default function Experience() {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.35, ease: "easeInOut" }}
                   className="mt-3"
+                  style={{
+                    backfaceVisibility: "hidden",
+                    WebkitTransform: "translateZ(0)",
+                  }}
                 >
                   <ul className="text-slate-400 space-y-2 list-disc list-inside">
                     {job.details.map((d, i) => (
