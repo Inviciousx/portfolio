@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
+import raziImg from "../assets/razi.png";
 
 export default function Hero() {
   return (
     <section id="home" className="relative overflow-hidden">
       <div className="mx-auto max-w-6xl px-4 py-16 md:py-18 grid md:grid-cols-2 gap-10 items-center">
+        {/* Text Section */}
         <div>
           <motion.h1
             initial={{ opacity: 0, y: 12 }}
@@ -32,7 +34,6 @@ export default function Hero() {
             lie, attackers do—and I'm training myself to see through both.”
           </blockquote>
 
-
           <div className="mt-8 flex gap-3">
             <a
               href="#projects"
@@ -49,12 +50,20 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Photo placeholder */}
-        <div className="h-64 md:h-80 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border border-slate-800 shadow-inner flex items-center justify-center">
-          <span className="text-slate-500 text-sm">
-            Your photo comes here (placeholder)
-          </span>
-        </div>
+        {/* Animated Photo Section — fly in from right */}
+        <motion.div
+          initial={{ opacity: 0, x: 80 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="flex items-center justify-center"
+        >
+          <img
+            src={raziImg}
+            alt="Raziuddin Mohammed"
+            className="rounded-2xl shadow-xl max-h-80 w-auto hover:scale-105 transition-transform duration-700 ease-out"
+          />
+        </motion.div>
       </div>
     </section>
   );
